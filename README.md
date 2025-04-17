@@ -65,7 +65,7 @@ This project utilizes the following core technologies:
   - Task: Initialize frontend framework (e.g., React/Vite) & basic routing.
   - Task: Create basic reusable UI components (Input, Button, Textarea).
   - Task: Implement frontend Signup/Login pages & API integration, setup protected routing.
-    _Concept Focus: Initialized frontend, Created frontend components, Implemented authentication (username/password)._
+  - _Concept Focus: Initialized frontend, Created frontend components, Implemented authentication (username/password)._
 - **Day 4:**
   - Task: Backend: Create API endpoint (POST /api/snippets) to submit a new snippet linked to the logged-in user.
   - Task: Frontend: Create the 'Submit Snippet' form page and connect to the backend API.
