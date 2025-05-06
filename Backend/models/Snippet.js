@@ -9,7 +9,6 @@ const SnippetSchema = new mongoose.Schema({
     maxlength: [100, "Title cannot be more than 100 characters"],
   },
   description: {
-    
     type: String,
     required: false,
     maxlength: [500, "Description cannot be more than 500 characters"], 
