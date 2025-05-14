@@ -41,16 +41,17 @@ router.post("/", async (req, res) => {
 // Update a snippet
 router.post("/:id/update", async (req, res) => {
   try {
-    const snippet = await Snippet.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    
+    const snippet = await Snippet.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
     if (!snippet) {
-      return res.status(404).json({ success: false, error: "Snippet not found" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Snippet not found" });
     }
-    
+
     res.json({ success: true, data: snippet });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
@@ -61,22 +62,26 @@ router.post("/:id/update", async (req, res) => {
 router.post("/:id/like", async (req, res) => {
   try {
     const snippet = await Snippet.findById(req.params.id);
-    
+
     if (!snippet) {
-      return res.status(404).json({ success: false, error: "Snippet not found" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Snippet not found" });
     }
-    
+
     // Temporary user ID (in a real app, would come from auth)
     const userId = "6501234567890123456789ab";
-    
+
     // Check if user already liked
     if (snippet.likes.includes(userId)) {
-      return res.status(400).json({ success: false, error: "Snippet already liked" });
+      return res
+        .status(400)
+        .json({ success: false, error: "Snippet already liked" });
     }
-    
+
     snippet.likes.push(userId);
     await snippet.save();
-    
+
     res.json({ success: true, data: snippet });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
@@ -87,21 +92,23 @@ router.post("/:id/like", async (req, res) => {
 router.post("/:id/comments", async (req, res) => {
   try {
     const snippet = await Snippet.findById(req.params.id);
-    
+
     if (!snippet) {
-      return res.status(404).json({ success: false, error: "Snippet not found" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Snippet not found" });
     }
-    
+
     // Temporary user ID (in a real app, would come from auth)
     const comment = {
       user: "6501234567890123456789ab",
       text: req.body.text,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
-    
+
     snippet.comments.push(comment);
     await snippet.save();
-    
+
     res.status(201).json({ success: true, data: comment });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
@@ -112,11 +119,13 @@ router.post("/:id/comments", async (req, res) => {
 router.post("/:id/fork", async (req, res) => {
   try {
     const originalSnippet = await Snippet.findById(req.params.id);
-    
+
     if (!originalSnippet) {
-      return res.status(404).json({ success: false, error: "Snippet not found" });
+      return res
+        .status(404)
+        .json({ success: false, error: "Snippet not found" });
     }
-    
+
     // Create new snippet based on original
     const newSnippet = {
       title: `Fork of ${originalSnippet.title}`,
@@ -124,15 +133,14 @@ router.post("/:id/fork", async (req, res) => {
       language: originalSnippet.language,
       description: originalSnippet.description,
       user: "6501234567890123456789ab", // Temporary user ID
-      forkedFrom: originalSnippet._id
+      forkedFrom: originalSnippet._id,
     };
-    
+
     const snippet = await Snippet.create(newSnippet);
     res.status(201).json({ success: true, data: snippet });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }
 });
-
 
 module.exports = router;
