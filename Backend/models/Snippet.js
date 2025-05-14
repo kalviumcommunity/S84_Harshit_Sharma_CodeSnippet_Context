@@ -76,4 +76,9 @@ const CommentSchema = new mongoose.Schema({
   updatedAt: Date,
 });
 
+// Add comments to SnippetSchema
+SnippetSchema.add({
+  comments: [CommentSchema]
+});
+
 module.exports = mongoose.model("Snippet", SnippetSchema);
