@@ -81,4 +81,9 @@ SnippetSchema.add({
   comments: [CommentSchema]
 });
 
+// Add comments to SnippetSchema
+SnippetSchema.add({
+  comments: [CommentSchema]
+});
+
 module.exports = mongoose.model("Snippet", SnippetSchema);
