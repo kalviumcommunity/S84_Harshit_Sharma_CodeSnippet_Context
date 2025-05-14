@@ -261,7 +261,7 @@ router.put("/:id/visibility", async (req, res) => {
     }
 
     snippet.isPublic = req.body.isPublic;
-    await snippet.save();1
+    await snippet.save();
 
     res.json({
       success: true,
