@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const SnippetSchema = new mongoose.Schema({
@@ -11,15 +10,15 @@ const SnippetSchema = new mongoose.Schema({
   description: {
     type: String,
     required: false,
-    maxlength: [500, "Description cannot be more than 500 characters"], 
+    maxlength: [500, "Description cannot be more than 500 characters"],
   },
   code: {
     type: String,
-    required: [true, "Please add the code snippet"], 
+    required: [true, "Please add the code snippet"],
   },
   language: {
     type: String,
-    required: [true, "Please specify the language"], 
+    required: [true, "Please specify the language"],
     trim: true,
     lowercase: true,
   },
@@ -57,6 +56,24 @@ const SnippetSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+// Comment Schema (embedded in Snippet)
+const CommentSchema = new mongoose.Schema({
+  text: {
+    type: String,
+    required: [true, "Comment text is required"],
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: Date,
 });
 
 module.exports = mongoose.model("Snippet", SnippetSchema);
